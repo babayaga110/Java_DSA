@@ -1,15 +1,22 @@
 class Solution {
     public int[] smallerNumbersThanCurrent(int[] nums) {
-       int[] result=new int[nums.length];
-        int k=0;
-        for(int i=0;i<nums.length;i++){
-            int count=0;
-            for(int j=0;j<nums.length;j++){
-                if(i!=j && nums[i]>nums[j])
-                    count++;
-            }
-            result[k++]=count;
+      int smaller[]=new int[101];
+        for(int a:nums)
+            smaller[a]++;
+        for(int i=1;i<101;i++)
+        {
+            smaller[i]+=smaller[i-1];
         }
-        return result;
+        for(int i=0;i<nums.length;i++)
+        {
+            int index=nums[i];
+            if(index==0)
+                nums[i]=0;
+            else
+            {
+                nums[i]=smaller[index-1];
+            }
+        }
+        return nums;
     }
 }
